@@ -42,7 +42,7 @@ void OPENSSL_config(const char *appname)
 
 int openssl_config_int(const OPENSSL_INIT_SETTINGS *settings)
 {
-    int ret;
+    int ret = 1;
     const char *filename;
     const char *appname;
     unsigned long flags;
@@ -65,9 +65,6 @@ int openssl_config_int(const OPENSSL_INIT_SETTINGS *settings)
     ENGINE_load_builtin_engines();
 #endif
     ERR_clear_error();
-#ifndef OPENSSL_SYS_UEFI
-    ret = CONF_modules_load_file(filename, appname, flags);
-#endif
     openssl_configured = 1;
     return ret;
 }
